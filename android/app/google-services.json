@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "845415001684",
+    "project_id": "sheraz-in-app-messaging-app",
+    "storage_bucket": "sheraz-in-app-messaging-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845415001684:android:f817de66e777d44b6407c1",
+        "android_client_info": {
+          "package_name": "com.sherazapp.inappmessaging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845415001684-goa5vh45uvrd7re2b7hlacf094tjm0d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRXNbVkZZz1v1VOlvifpXQdYqxpVU4A3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845415001684-goa5vh45uvrd7re2b7hlacf094tjm0d4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "845415001684-daub1mp149gk4amvtoj5dievb3bs7eo3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sherazapp.inappmessaging"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
