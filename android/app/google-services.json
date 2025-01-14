@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "845415001684-735uu8kt6j4ga0rrmm8f6g7i0fe04uv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sherazapp.inappmessaging",
+            "certificate_hash": "799cfbd9921d0ad1f3e4b4229bfd0a3c8e2e86cc"
+          }
+        },
+        {
           "client_id": "845415001684-goa5vh45uvrd7re2b7hlacf094tjm0d4.apps.googleusercontent.com",
           "client_type": 3
         }

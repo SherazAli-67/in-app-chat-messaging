@@ -14,4 +14,5 @@ class AppIcons {
   static const icSend = 'assets/images/svgs/ic_send.svg';
   static const icEmptyChats = 'assets/images/svgs/empty_chats.svg';
   static const icPDF = 'assets/images/svgs/ic_pdf.svg';
+  static const icVideo = 'assets/images/svgs/ic_video.svg';
 }

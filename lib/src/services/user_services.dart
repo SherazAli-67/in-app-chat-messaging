@@ -30,6 +30,12 @@ class UserService{
         .snapshots();
   }
 
+  static Stream<List<UserModel>> get allUsers {
+    return FirebaseFirestore.instance
+        .collection(usersCollection)
+        .snapshots().map((snapshot)=> snapshot.docs.map((doc)=> UserModel.fromMap(doc.data())).toList());
+  }
+
   static Future<UserModel?> getCurrentUser()async{
     String uID = FirebaseAuth.instance.currentUser!.uid;
     DocumentSnapshot docSnap = await  FirebaseFirestore.instance.collection(usersCollection).doc(uID).get();

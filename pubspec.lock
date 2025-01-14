@@ -225,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "09bad715f418841f976c77db72d5398dc1253c21fb9c0c7f0b0b985860b2d58e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -560,6 +568,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.12.4+3"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "1fc58edeaec4307368c60d59b7e15b9d658b57d7f3125098b6294153c75337ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.5"
   http:
     dependency: transitive
     description:
@@ -964,10 +980,10 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.28.0"
+    version: "0.27.7"
   shared_preferences:
     dependency: transitive
     description:
@@ -1077,6 +1093,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
+  story_view:
+    dependency: "direct main"
+    description:
+      name: story_view
+      sha256: ab64063569178e405b643ab11bdc28d6e85333191e3c8b5556e864fe6c5b2a5a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.16.5"
   stream_channel:
     dependency: transitive
     description:
@@ -1189,6 +1213,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.2"
+  video_player:
+    dependency: transitive
+    description:
+      name: video_player
+      sha256: "4a8c3492d734f7c39c2588a3206707a05ee80cef52e8c7f3b2078d430c84bc17"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.2"
+  video_player_android:
+    dependency: transitive
+    description:
+      name: video_player_android
+      sha256: e343701aa890b74a863fa460f5c0e628127ed06a975d7d9af6b697133fb25bdf
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.1"
+  video_player_avfoundation:
+    dependency: transitive
+    description:
+      name: video_player_avfoundation
+      sha256: "33224c19775fd244be2d6e3dbd8e1826ab162877bd61123bf71890772119a2b7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.6.5"
+  video_player_platform_interface:
+    dependency: transitive
+    description:
+      name: video_player_platform_interface
+      sha256: "229d7642ccd9f3dc4aba169609dd6b5f3f443bb4cc15b82f7785fcada5af9bbb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.2.3"
+  video_player_web:
+    dependency: transitive
+    description:
+      name: video_player_web
+      sha256: "881b375a934d8ebf868c7fb1423b2bfaa393a0a265fa3f733079a86536064a10"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.3"
   visibility_detector:
     dependency: transitive
     description:

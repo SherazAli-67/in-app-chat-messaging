@@ -85,14 +85,23 @@ class ChatService{
           final docID =  doc.id;
           List<String> userIDs =  docID.split('_');
           String remoteUID = userIDs.where((userID) => userID != FirebaseAuth.instance.currentUser!.uid).first;
-          // debugPrint("RemoteUID: ${remoteUID}");
           UserModel remoteUser = UserModel.fromMap(doc.data()[remoteUID]);
           MessageModel? lastMessage = doc.data()[lastMessageKey] != null
               ? MessageModel.fromMap(doc.data()[lastMessageKey])
               : null;
           final chatModel = ChatModel(remoteUser: remoteUser, roomID: docID, lastMessage: lastMessage);
           return chatModel;
-        },).toList());
+        },)
+            .toList()
+          ..sort((a, b) {
+            final aTimeStamp =
+                a.lastMessage?.timeStamp ?? Timestamp.fromMillisecondsSinceEpoch(0);
+            final bTimeStamp =
+                b.lastMessage?.timeStamp ?? Timestamp.fromMillisecondsSinceEpoch(0);
+            return bTimeStamp.compareTo(aTimeStamp);
+          }));;
+
+
   }
 
   static Future<void> sendMessage({required String roomID,required MessageModel message, required String userID}) async{

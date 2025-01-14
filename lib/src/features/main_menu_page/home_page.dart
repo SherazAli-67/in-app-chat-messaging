@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_app_messaging/src/features/chats/chats_pages/chat_messages_page.dart';
+import 'package:in_app_messaging/src/features/story_view_page.dart';
 import 'package:in_app_messaging/src/helpers/date_time_helper.dart';
 import 'package:in_app_messaging/src/res/app_colors.dart';
 import 'package:in_app_messaging/src/res/app_icons.dart';
 import 'package:in_app_messaging/src/res/app_text_styles.dart';
 import 'package:in_app_messaging/src/services/chat_service.dart';
+import 'package:in_app_messaging/src/user_model.dart';
 import 'package:in_app_messaging/src/widgets/loading_widget.dart';
 
 import '../../services/user_services.dart';
@@ -45,20 +48,31 @@ class HomePage extends StatelessWidget{
                           ));
                         }
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(height: 10,),
+
                       SizedBox(
-                        height: 75,
-                        child: ListView.builder(
-                            itemCount: 10,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (ctx, index){
-                          return const StoryWidget();
-                        }),
+                        height: 140,
+                        child: StreamBuilder(
+                          stream: UserService.allUsers,
+                          builder: (ctx,snapshot){
+                            if(snapshot.hasData){
+                              return ListView.builder(
+                                  itemCount: snapshot.requireData.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (ctx, index){
+                                    UserModel user = snapshot.requireData[index];
+                                    return StoryWidget(user: user,);
+                                  });
+                            }
+
+                            return const SizedBox();
+
+                          },
+                        ),
                       )
                     ],
                   ),
                 ),
-                const SizedBox(height: 20,),
                 Expanded(child: SizedBox(
                   height: double.infinity,
                   child: Card(
@@ -71,7 +85,23 @@ class HomePage extends StatelessWidget{
                       stream: ChatService.getUserChats,
                       builder: (_, snapshot) {
                         if(snapshot.hasData){
-                          return Column(
+                          return snapshot.requireData.isEmpty ? SizedBox(
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(AppIcons.icEmptyChats,),
+                                  const SizedBox(height: 20,),
+                                  Text('"No Conversations"', style: AppTextStyles.subHeadingTextStyle.copyWith(color: Colors.black, fontSize: 20),),
+                                  const SizedBox(height: 10,),
+                                  const Text('Start a conversation with your contacts to chat with friends and family.', textAlign: TextAlign.center, style: AppTextStyles.mediumTextStyle),
+
+                                ],
+                              ),
+                            ),
+                          ) : Column(
                             children: snapshot.requireData.map((chat){
                               return Column(
                                 children: [
@@ -98,7 +128,8 @@ class HomePage extends StatelessWidget{
                               );
                             }).toList(),
                           );
-                        }else if(snapshot.connectionState == ConnectionState.waiting){
+                        }
+                        else if(snapshot.connectionState == ConnectionState.waiting){
                           return const LoadingWidget();
                         }else if(snapshot.hasError){
                           return Center(child: Text(snapshot.error.toString(), style: AppTextStyles.smallTextStyle,));
@@ -120,17 +151,34 @@ class HomePage extends StatelessWidget{
 class StoryWidget extends StatelessWidget {
   const StoryWidget({
     super.key,
+    required this.user
   });
-
+  final UserModel user;
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      backgroundColor: AppColors.amberYellowColor,
-      radius: 45,
-      child: CircleAvatar(
-        radius: 35,
-        backgroundColor: AppColors.amberYellowColor,
-        backgroundImage: CachedNetworkImageProvider("https://images.unsplash.com/photo-1697017690254-5a4b64320721?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fEhhcHB5JTIwcGVvcGxlfGVufDB8fDB8fHww"),
+    return  GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>  StoryViewPage(user: user,)));
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15.0),
+        child: Column(
+          children: [
+            CircleAvatar(
+              backgroundColor: AppColors.amberYellowColor,
+              radius: 40,
+              child: CircleAvatar(
+                radius: 37,
+                backgroundColor: AppColors.amberYellowColor,
+                backgroundImage: CachedNetworkImageProvider(user.userProfilePicture),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            SizedBox(
+                width: 100,
+                child: Text(user.userName, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16, color: Colors.white),))
+          ],
+        ),
       ),
     );
   }

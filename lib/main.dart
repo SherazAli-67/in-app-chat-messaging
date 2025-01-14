@@ -9,19 +9,32 @@ import 'package:in_app_messaging/src/bloc_cubit/auth_cubit/auth_cubit.dart';
 import 'package:in_app_messaging/src/bloc_cubit/main_menu_bloc/main_menu_bloc.dart';
 import 'package:in_app_messaging/src/features/main_menu_page/main_menu_page.dart';
 import 'package:in_app_messaging/src/features/welcome_page.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'assets/.env');
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
+      options: DefaultFirebaseOptions.currentPlatform
   );
-  runApp(const MyApp());
+  /// 1.1.2: set navigator key to ZegoUIKitPrebuiltCallInvitationService
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
+  // call the useSystemCallingUI
+  ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
+
+    runApp(MyApp(navigatorKey: navigatorKey));
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.navigatorKey});
+  final GlobalKey<NavigatorState> navigatorKey;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,10 +45,12 @@ class MyApp extends StatelessWidget {
 
       ],
       child: MaterialApp(
-        title: 'Chat Messaging Application',
+        navigatorKey: navigatorKey,
+        title: 'In-App Messaging App',
         theme: AppTheme.darkTheme,
-        home:  FirebaseAuth.instance.currentUser!= null ? const MainMenuPage() : const WelcomePage()
-      ),
+          home: FirebaseAuth.instance.currentUser != null
+              ? const MainMenuPage()
+              : const WelcomePage()),
     );
   }
 }

@@ -15,7 +15,6 @@ class AuthCubit extends Cubit<AuthStates>{
 
   Future<void> onSignInWithGoogleTap() async {
     emit(SigningInWithGoogle());
-    debugPrint("On Tap:");
     try{
 
       // if it is web

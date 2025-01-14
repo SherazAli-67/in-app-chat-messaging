@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:in_app_messaging/src/bloc_cubit/auth_cubit/auth_cubit.dart';
 import 'package:in_app_messaging/src/features/create_profile_page.dart';
 import 'package:in_app_messaging/src/features/main_menu_page/main_menu_page.dart';
+import 'package:in_app_messaging/src/helpers/zego_cloud_helper.dart';
 import 'package:in_app_messaging/src/res/app_icons.dart';
 import 'package:in_app_messaging/src/res/app_text_styles.dart';
 import 'package:in_app_messaging/src/widgets/loading_widget.dart';
@@ -50,6 +52,7 @@ class WelcomePage extends StatelessWidget{
                   BlocConsumer<AuthCubit,AuthStates>(
                     listener: (_, state){
                       if(state is SignedInWithGoogle){
+                        ZegoCloudHelper.initZegoCloudInvitationService();
                         if(state.isNewUser){
                           //Create profile page
                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> const CreateProfilePage()));
@@ -72,14 +75,19 @@ class WelcomePage extends StatelessWidget{
                                 borderRadius: BorderRadius.circular(99)
                               )
                             ),
-                            onPressed: ()=> authCubit.onSignInWithGoogleTap(), child: state is SigningInWithGoogle ? const LoadingWidget() : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        onPressed: () => authCubit.onSignInWithGoogleTap(),
+                        child:  state is SigningInWithGoogle
+                            ? const LoadingWidget(color: Colors.black,)
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgPicture.asset(AppIcons.icGoogle),
                                 const SizedBox(width: 5,),
                                 Text("Continue with Google", style: AppTextStyles.btnTextStyle.copyWith(color: Colors.black),),
                               ],
-                            )),
+                            ),
+
+                        ),
                       );
                     }
                   )

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:in_app_messaging/src/features/chats/select_user_to_chat.dart';
+import 'package:in_app_messaging/src/features/main_menu_page/calls_page.dart';
 import 'package:in_app_messaging/src/features/main_menu_page/home_page.dart';
 import 'package:in_app_messaging/src/res/app_colors.dart';
 import 'package:in_app_messaging/src/res/app_icons.dart';
@@ -24,7 +25,7 @@ class MainMenuPage extends StatefulWidget{
 class _MainMenuPageState extends State<MainMenuPage> {
   final List<Widget>  pages = [
     const HomePage(),
-    const SizedBox(),
+    const CallsPage(),
     const SizedBox(),
     const SizedBox()
   ];
@@ -41,12 +42,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   }
   @override
   Widget build(BuildContext context) {
-  /*  pages = [
-      const HomePage(),
-      const SizedBox(),
-      const SizedBox(),
-      const SizedBox()
-    ];*/
+
     final tabChangeBloc = BlocProvider.of<MainMenuTabChangeBloc>(context);
     return BlocConsumer<MainMenuTabChangeBloc, MainMenuState>(
         bloc: tabChangeBloc,
